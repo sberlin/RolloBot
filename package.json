@@ -1,6 +1,6 @@
 {
   "name": "shutters-motor",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Control a motor via GPIO to open and close shutters",
   "main": "app.js",
   "dependencies": {

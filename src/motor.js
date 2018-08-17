@@ -1,14 +1,17 @@
 const Gpio = require('pigpio').Gpio;
 
 class Motor {
-    constructor (pins = {}) {
+    constructor (mapping = {}) {
         this.LOW = 0;
         this.HIGH = 255;
         this.pins = {};
-        for (let pin in pins) {
-            if (pins.hasOwnProperty(pin)) {
-                this.pins[pin] = new Gpio(
-                    pins[pin],
+        const pinKeys = ["pwm", "fwd", "rev"];
+        for (let i in pinKeys) {
+            const key = pinKeys[i];
+            const pinNumber = mapping[pinKeys[i]];
+            if (pinNumber) {
+                this.pins[key] = new Gpio(
+                    pinNumber,
                     {mode: Gpio.OUTPUT}
                 );
             }

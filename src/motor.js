@@ -18,21 +18,21 @@ class Motor {
         }
     }
     _start (speed) {
-        this.pins.pwm.pwmWrite(speed || this.HIGH);
+        this.pins["pwm"].pwmWrite(speed || this.HIGH);
     }
     stop () {
-        this.pins.pwm.pwmWrite(this.LOW);
+        this.pins["pwm"].pwmWrite(this.LOW);
     }
     forward (speed, seconds) {
         this._timeout(seconds);
-        this.pins.fwd.pwmWrite(this.HIGH);
-        this.pins.rev.pwmWrite(this.LOW);
+        this.pins["fwd"].pwmWrite(this.HIGH);
+        this.pins["rev"].pwmWrite(this.LOW);
         this._start(speed);
     }
     reverse (speed, seconds) {
         this._timeout(seconds);
-        this.pins.fwd.pwmWrite(this.LOW);
-        this.pins.rev.pwmWrite(this.HIGH);
+        this.pins["fwd"].pwmWrite(this.LOW);
+        this.pins["rev"].pwmWrite(this.HIGH);
         this._start(speed);
     }
     _timeout (seconds = 0) {

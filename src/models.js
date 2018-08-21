@@ -24,10 +24,8 @@ const models = {
         (pin, speed) => pin.pwmWrite(speed)
     ),
     "MOCK": new Model(idCounter++, 0, 255,
-        (pinNumber) => {
-            return {};
-        },
-        (pin, speed) => () => {}
+        () => null,
+        () => null
     )
 };
 

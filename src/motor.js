@@ -13,21 +13,21 @@ class Motor {
         }
     }
     _start (speed) {
-        this.model.write(this.pins["pwm"], speed || this.HIGH);
+        this.model.write(this.pins["pwm"], speed || this.model.HIGH);
     }
     stop () {
-        this.model.write(this.pins["pwm"], this.LOW);
+        this.model.write(this.pins["pwm"], this.model.LOW);
     }
     forward (speed, seconds) {
         this._timeout(seconds);
-        this.model.write(this.pins["fwd"], this.HIGH);
-        this.model.write(this.pins["rev"], this.LOW);
+        this.model.write(this.pins["fwd"], this.model.HIGH);
+        this.model.write(this.pins["rev"], this.model.LOW);
         this._start(speed);
     }
     reverse (speed, seconds) {
         this._timeout(seconds);
-        this.model.write(this.pins["fwd"], this.LOW);
-        this.model.write(this.pins["rev"], this.HIGH);
+        this.model.write(this.pins["fwd"], this.model.LOW);
+        this.model.write(this.pins["rev"], this.model.HIGH);
         this._start(speed);
     }
     _timeout (seconds = 0) {

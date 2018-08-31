@@ -23,6 +23,14 @@ class MotorController {
         return motorService.getAll();
     }
 
+    static start(id, paramMap) {
+        motorService.start(id);
+    }
+
+    static stop(id) {
+        motorService.stop(id);
+    }
+
     static delete(id) {
         motorService.remove(id);
     }
@@ -57,6 +65,26 @@ class MotorController {
                     }
                 } else {
                     throw {"code": 400, "message": "POST request does not accept path parameters"};
+                }
+                break;
+            case "PUT":
+                if (pathParts[1]) {
+                    switch (reqObj["state"]) {
+                        case "started":
+                            result.data = this.start(pathParts[1], paramMap);
+                            result.code = 204;
+                            result.message = "No content";
+                            break;
+                        case "stopped":
+                            result.data = this.stop(pathParts[1]);
+                            result.code = 204;
+                            result.message = "No content";
+                            break;
+                        default:
+                            throw {"code": 400, "message": "Only setting motor state=[started|stopped] supported"};
+                    }
+                } else {
+                    throw {"code": 400, "message": "Motor id is missing"};
                 }
                 break;
             case "DELETE":

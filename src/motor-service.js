@@ -32,6 +32,24 @@ class MotorService {
         return this._motors;
     }
 
+    start(id, speed, seconds, reverse = false) {
+        const motor = this.find(id);
+        if (motor) {
+            if (reverse) {
+                motor.reverse(speed, seconds);
+            } else {
+                motor.forward(speed, seconds);
+            }
+        }
+    }
+
+    stop(id) {
+        const motor = this.find(id);
+        if (motor) {
+            motor.stop();
+        }
+    }
+
     remove(id) {
         const motor = this.find(id);
         if (motor) {

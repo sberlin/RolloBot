@@ -6,6 +6,7 @@ class Motor {
         } else {
             this.model = model;
             this.pins = {};
+            this.state = "stopped";
             const pinKeys = ["pwm", "fwd", "rev"];
             for (let i in pinKeys) {
                 const key = pinKeys[i];
@@ -20,9 +21,11 @@ class Motor {
     }
     _start (speed) {
         this.model.write(this.pins["pwm"], speed || this.model.HIGH);
+        this.state = "started";
     }
     stop () {
         this.model.write(this.pins["pwm"], this.model.LOW);
+        this.state = "stopped";
     }
     forward (speed, seconds) {
         this._timeout(seconds);

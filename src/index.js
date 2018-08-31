@@ -1,8 +1,46 @@
-const Motor = require("./motor");
-const models = require("./models");
+const http = require("http");
+const url = require("url");
+const MotorController = require("./motor-controller");
 
-// use these pins on Neonious One as default
-const motor = new Motor({pwm: 7, fwd: 8, rev: 9}, models.NEONIOUS_ONE);
+http.createServer(function (req, res) {
+    const parsedUrl = new url.parse(req.url);
+    res.setHeader("Content-Type", "application/json");
 
-// TODO
-motor.forward(1, 10);
+    let chunks = [];
+    req.on("error", (err) => {
+        console.error(err);
+    }).on("data", (chunk) => {
+        chunks.push(chunk);
+    }).on("end", () => {
+        const body = chunks.length ? Buffer.concat(chunks).toString() : null;
+
+        if (/^\/motor.*/.test(parsedUrl.pathname)) {
+            let result = null;
+            console.log("REST endpoint 'motor' called");
+
+            try {
+                result = MotorController.resolve(parsedUrl, req.method, body);
+            } catch (err) {
+                res.statusCode = err.code || 500;
+                res.statusMessage = err.message || "Oops";
+                console.error(res.statusCode, res.statusMessage);
+            }
+
+            if (result) {
+                res.statusCode = result.code || 200;
+                res.statusMessage = result.message || "OK";
+                res.end(JSON.stringify(result.data));
+            } else {
+                res.setHeader("Content-Length", "0");
+                res.end();
+            }
+        } else {
+            res.setHeader("Content-Length", "0");
+            res.statusCode = 404;
+            res.statusMessage = "Not found";
+            res.end();
+        }
+    });
+}).listen(80);
+
+console.log("RolloBot API running!");

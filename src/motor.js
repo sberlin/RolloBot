@@ -1,14 +1,20 @@
 
 class Motor {
-    constructor (mapping = {}, model) {
-        this.model = model;
-        this.pins = {};
-        const pinKeys = ["pwm", "fwd", "rev"];
-        for (let i in pinKeys) {
-            const key = pinKeys[i];
-            const pinNumber = mapping[pinKeys[i]];
-            if (pinNumber) {
-                this.pins[key] = this.model.newPin(pinNumber);
+    constructor (mapping, model) {
+        if (!model || typeof model !== "object") {
+            throw { "code": 405, "message": `Unknown motor model '${model}'` };
+        } else {
+            this.model = model;
+            this.pins = {};
+            const pinKeys = ["pwm", "fwd", "rev"];
+            for (let i in pinKeys) {
+                const key = pinKeys[i];
+                const pinNumber = mapping[key] || mapping[key.toUpperCase()];
+                if (pinNumber) {
+                    this.pins[key] = this.model.newPin(pinNumber);
+                } else {
+                    throw { "code": 405, "message": `Pin number to control motor function '${key}' missing` };
+                }
             }
         }
     }

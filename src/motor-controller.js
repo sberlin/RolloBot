@@ -5,6 +5,10 @@ class MotorController {
         throw "Class not instantiable";
     }
 
+    static post(mapping, model) {
+        return motorService.create(mapping, model);
+    }
+
     static get(id) {
         let motor = null;
         if (id >= 0) {
@@ -22,6 +26,7 @@ class MotorController {
     static resolve(url, method, body) {
         const result = {};
         const pathParts = url.pathname.substring(1).split("/");
+        const reqObj = JSON.parse(body);
 
         switch (method) {
             case "GET":
@@ -32,6 +37,23 @@ class MotorController {
                 }
                 result.code = 200;
                 result.message = "OK";
+                break;
+            case "POST":
+                if (!pathParts[1]) {
+                    if (reqObj) {
+                        result.data = this.post({
+                            "pwm": reqObj["pwm"],
+                            "fwd": reqObj["fwd"],
+                            "rev": reqObj["rev"]
+                        }, reqObj["model"]);
+                        result.code = 201;
+                        result.message = "Created";
+                    } else {
+                        throw {"code": 400, "message": "Motor parameters missing in request body"};
+                    }
+                } else {
+                    throw {"code": 400, "message": "POST request does not accept path parameters"};
+                }
                 break;
             default:
                 throw {"code": 405, "message": `Invalid method '${method}'`};

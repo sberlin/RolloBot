@@ -32,6 +32,7 @@ http.createServer(function (req, res) {
                 res.end(JSON.stringify(result.data));
             } else {
                 res.setHeader("Content-Length", "0");
+                res.write("");
                 res.end();
             }
         } else {

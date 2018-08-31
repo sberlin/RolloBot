@@ -1,11 +1,11 @@
-const Model = require('./model');
+const Model = require("./model");
 
 let idCounter = 0;
 
 const models = {
     "NEONIOUS_ONE": new Model(idCounter++, 0, 1,
         (pinNumber) => {
-            const gpio = require('gpio');
+            const gpio = require("gpio");
             const pin = gpio.pins[pinNumber];
             pin.setType(gpio.OUTPUT);
             return pin;
@@ -14,7 +14,7 @@ const models = {
     ),
     "RASPBERRY_PI": new Model(idCounter++, 0, 255,
         (pinNumber) => {
-            const Gpio = require('pigpio').Gpio;
+            const Gpio = require("pigpio").Gpio;
             const pin = new Gpio(
                 pinNumber,
                 { mode: Gpio.OUTPUT }

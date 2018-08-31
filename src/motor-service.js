@@ -31,6 +31,14 @@ class MotorService {
     getAll() {
         return this._motors;
     }
+
+    remove(id) {
+        const motor = this.find(id);
+        if (motor) {
+            motor.stop();
+            delete this._motors[id];
+        }
+    }
 }
 
 module.exports = new MotorService();

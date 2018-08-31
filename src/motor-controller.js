@@ -23,6 +23,10 @@ class MotorController {
         return motorService.getAll();
     }
 
+    static delete(id) {
+        motorService.remove(id);
+    }
+
     static resolve(url, method, body) {
         const result = {};
         const pathParts = url.pathname.substring(1).split("/");
@@ -53,6 +57,13 @@ class MotorController {
                     }
                 } else {
                     throw {"code": 400, "message": "POST request does not accept path parameters"};
+                }
+                break;
+            case "DELETE":
+                if (pathParts[1]) {
+                    result.data = this.delete(pathParts[1]);
+                } else {
+                    throw {"code": 400, "message": "Motor id is missing"};
                 }
                 break;
             default:

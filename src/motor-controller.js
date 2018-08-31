@@ -24,7 +24,7 @@ class MotorController {
     }
 
     static start(id, paramMap) {
-        motorService.start(id);
+        motorService.start(id, paramMap.speed, paramMap.seconds, paramMap.reverse);
     }
 
     static stop(id) {
@@ -35,9 +35,9 @@ class MotorController {
         motorService.remove(id);
     }
 
-    static resolve(url, method, body) {
+    static resolve(path, method, body) {
         const result = {};
-        const pathParts = url.pathname.substring(1).split("/");
+        const pathParts = path.substring(1).split("/");
         const reqObj = JSON.parse(body);
 
         switch (method) {
@@ -71,7 +71,9 @@ class MotorController {
                 if (pathParts[1]) {
                     switch (reqObj["state"]) {
                         case "started":
-                            result.data = this.start(pathParts[1], paramMap);
+                            // no GET parameters available :(
+                            const {speed, seconds, reverse} = reqObj;
+                            result.data = this.start(pathParts[1], {speed, seconds, reverse});
                             result.code = 204;
                             result.message = "No content";
                             break;

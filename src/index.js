@@ -16,7 +16,7 @@ http.createServer(function (req, res) {
 
         if (/^\/motor.*/.test(parsedUrl.pathname)) {
             let result = null;
-            console.log("REST endpoint 'motor' called");
+            console.log(`[${req.method}] ${req.url}`);
 
             try {
                 result = MotorController.resolve(parsedUrl.pathname, req.method, body);

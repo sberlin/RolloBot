@@ -6,7 +6,7 @@ class MotorService {
         this._motors = [];
     }
 
-    create(mapping, model) {
+    create(mapping, modelName) {
         const model = models[modelName];
         let newMotor = null;
         if (model) {

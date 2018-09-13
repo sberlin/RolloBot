@@ -19,7 +19,7 @@ http.createServer(function (req, res) {
             console.log("REST endpoint 'motor' called");
 
             try {
-                result = MotorController.resolve(path, req.method, body);
+                result = MotorController.resolve(parsedUrl.pathname, req.method, body);
             } catch (err) {
                 res.statusCode = err.code || 500;
                 res.statusMessage = err.message || "Oops";

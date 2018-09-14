@@ -17,9 +17,6 @@ Upload the files located in `src/` by using the integrated IDE. Take care of the
 maximum module depth limited by stack size by copying errornous module's code
 into the depending module.
 
-## TODO
-* Use a build tool to generate a single JS file to use on Neonious One
-
 ## Resources
 
 * https://www.neonious.com/Documentation/one

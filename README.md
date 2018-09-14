@@ -22,6 +22,5 @@ into the depending module.
 
 ## Resources
 
-* https://www.neonious.com/TPManual
-* https://github.com/neoniousTR/table_radar
-
+* https://www.neonious.com/Documentation/one
+* https://github.com/neonious/neonone_examples

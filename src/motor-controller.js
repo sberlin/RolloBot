@@ -74,13 +74,13 @@ class MotorController {
                             // no GET parameters available :(
                             const {speed, seconds, reverse} = reqObj;
                             result.data = this.start(pathParts[1], {speed, seconds, reverse});
-                            result.code = 204;
-                            result.message = "No content";
+                            result.code = 200;
+                            result.message = "Started";
                             break;
                         case "stopped":
                             result.data = this.stop(pathParts[1]);
-                            result.code = 204;
-                            result.message = "No content";
+                            result.code = 200;
+                            result.message = "Stopped";
                             break;
                         default:
                             throw {"code": 400, "message": "Only setting motor state=[started|stopped] supported"};

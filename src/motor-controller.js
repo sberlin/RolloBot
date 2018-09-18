@@ -23,7 +23,7 @@ class MotorController {
         return motorService.getAll();
     }
 
-    static start(id, paramMap) {
+    static start(id, paramMap = {}) {
         motorService.start(id, paramMap.speed, paramMap.seconds, paramMap.reverse);
     }
 

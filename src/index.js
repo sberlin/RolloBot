@@ -14,9 +14,9 @@ http.createServer(function (req, res) {
     }).on("end", () => {
         const body = chunks.length ? Buffer.concat(chunks).toString() : null;
 
+        console.log(`[${req.method}] ${req.url}`);
         if (/^\/motor.*/.test(parsedUrl.pathname)) {
             let result = null;
-            console.log(`[${req.method}] ${req.url}`);
 
             try {
                 result = MotorController.resolve(parsedUrl.pathname, req.method, body);

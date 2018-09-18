@@ -5,8 +5,8 @@ class MotorController {
         throw "Class not instantiable";
     }
 
-    static post(mapping, model) {
-        return motorService.create(mapping, model);
+    static post(mapping, modelName) {
+        return motorService.create(mapping, modelName);
     }
 
     static get(id) {

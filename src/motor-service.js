@@ -13,7 +13,7 @@ class MotorService {
             newMotor = new Motor(mapping, model);
             this._motors.push(newMotor);
         } else {
-            throw { "code": 400, "message": `Motor model '${modelName}' not found` };
+            throw { "code": 400, "message": `Hardware model '${modelName}' not found` };
         }
         return newMotor;
     }
@@ -41,6 +41,7 @@ class MotorService {
                 motor.forward(speed, seconds);
             }
         }
+        return motor;
     }
 
     stop(id) {
@@ -48,6 +49,7 @@ class MotorService {
         if (motor) {
             motor.stop();
         }
+        return motor;
     }
 
     remove(id) {
@@ -56,6 +58,7 @@ class MotorService {
             motor.stop();
             delete this._motors[id];
         }
+        return motor;
     }
 }
 

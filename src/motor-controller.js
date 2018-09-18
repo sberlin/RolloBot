@@ -24,15 +24,15 @@ class MotorController {
     }
 
     static start(id, paramMap = {}) {
-        motorService.start(id, paramMap.speed, paramMap.seconds, paramMap.reverse);
+        return motorService.start(id, paramMap.speed, paramMap.seconds, paramMap.reverse);
     }
 
     static stop(id) {
-        motorService.stop(id);
+        return motorService.stop(id);
     }
 
     static delete(id) {
-        motorService.remove(id);
+        return motorService.remove(id);
     }
 
     static resolve(path, method, body) {

@@ -19,5 +19,6 @@ into the depending module.
 
 ## Resources
 
+* [Technology Preview Manual](TPManual.pdf)
 * https://www.neonious.com/Documentation/one
 * https://github.com/neonious/neonone_examples

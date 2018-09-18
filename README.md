@@ -9,13 +9,14 @@ to [Node.JS](https://nodejs.org/) and a
 
 ## Usage
 ### Node.JS
-Start the application with `npm install && npm start`. It uses the
-[pigpio](https://www.npmjs.com/package/pigpio) library available on Raspberry Pi.
+Start the application with `npm install && npm debug`. It uses the
+[pigpio](https://www.npmjs.com/package/pigpio) library also available on Raspberry
+Pi.
 
 ### Neonious One
-Upload the files located in `src/` by using the integrated IDE. Take care of the
-maximum module depth limited by stack size by copying errornous module's code
-into the depending module.
+Build the application with `npm install && npm neonious`. Upload the file
+`dist/bundle.js` by using the integrated IDE. Bundling prevents errors regarding
+the maximum module depth limited by stack size.
 
 ## Resources
 

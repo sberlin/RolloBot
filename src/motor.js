@@ -1,9 +1,10 @@
 
 class Motor {
-    constructor (mapping, model) {
+    constructor (id, mapping, model) {
         if (!model || typeof model !== "object") {
             throw { "code": 405, "message": `Unknown motor model '${model}'` };
         } else {
+            this.id = id;
             this.model = model;
             this.pins = {};
             this.state = "stopped";

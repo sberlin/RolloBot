@@ -10,7 +10,7 @@ class MotorService {
         const model = models[modelName];
         let newMotor = null;
         if (model) {
-            newMotor = new Motor(mapping, model);
+            newMotor = new Motor(this._motors.length, mapping, model);
             this._motors.push(newMotor);
         } else {
             throw { "code": 400, "message": `Hardware model '${modelName}' not found` };

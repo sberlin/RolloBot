@@ -8,9 +8,9 @@ class ButtonService {
     on(eventName, action, modelName) {
         const model = models[modelName];
         if (model) {
-            model.btn.on(eventName, action);
+            model.getButton().on(eventName, action);
             this._events.filter((event) => event.eventName === eventName).forEach((event) => {
-                model.btn.removeListener(event.eventName, event.action);
+                model.getButton().removeListener(event.eventName, event.action);
             });
             this._events = this._events.filter((event) => event.eventName !== eventName);
             this._events.push({eventName, action});

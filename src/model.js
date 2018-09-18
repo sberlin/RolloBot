@@ -1,12 +1,12 @@
 
 class Model {
-    constructor (id, low, high, newPin, write, btn) {
+    constructor (id, low, high, newPin, write, getButton) {
         this.id = id;
         this.LOW = low;
         this.HIGH = high;
         this.newPin = newPin;
         this.write = write;
-        this.btn = btn;
+        this.getButton = getButton;
     }
 }
 

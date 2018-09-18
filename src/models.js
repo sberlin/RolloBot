@@ -11,7 +11,7 @@ const models = {
             return pin;
         },
         (pin, speed) => pin.setValue(speed),
-        require("gpio").pins[gpio.BUTTON]
+        () => require("gpio").pins[gpio.BUTTON]
     ),
     "RASPBERRY_PI": new Model("RASPBERRY_PI", 0, 255,
         (pinNumber) => {
@@ -22,9 +22,11 @@ const models = {
             );
             return pin;
         },
-        (pin, speed) => pin.pwmWrite(speed)
+        (pin, speed) => pin.pwmWrite(speed),
+        () => null
     ),
     "MOCK": new Model("MOCK", 0, 255,
+        () => null,
         () => null,
         () => null
     )

@@ -10,7 +10,8 @@ const models = {
             pin.setType(gpio.OUTPUT);
             return pin;
         },
-        (pin, speed) => pin.setValue(speed)
+        (pin, speed) => pin.setValue(speed),
+        require("gpio").pins[gpio.BUTTON]
     ),
     "RASPBERRY_PI": new Model("RASPBERRY_PI", 0, 255,
         (pinNumber) => {

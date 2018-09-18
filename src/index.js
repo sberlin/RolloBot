@@ -59,6 +59,6 @@ http.createServer(function (req, res) {
             res.end();
         }
     });
-}).listen(80);
+}).listen((process || {env: {NODE_ENV: "production"}}).env.NODE_ENV === 'DEBUG' ? 8080 : 80);
 
 console.log("RolloBot API running!");

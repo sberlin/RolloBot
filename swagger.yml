@@ -1,0 +1,172 @@
+swagger: "2.0"
+info:
+  description: "This is the RolloBot API. You can find out more about it at https://github.com/sberlin/RolloBot"
+  version: "1.0.0"
+  title: "RolloBot"
+  license:
+    name: "MIT License"
+    url: "https://github.com/sberlin/RolloBot/blob/master/LICENSE"
+basePath: "/"
+tags:
+- name: "motor"
+  description: "Interact with a motor via GPIO"
+schemes:
+- "http"
+paths:
+  /motor/{motorId}:
+    get:
+      tags:
+      - "motor"
+      summary: "Find motor by ID"
+      description: "Returns a single motor"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "motorId"
+        in: "path"
+        description: "ID of motor to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Motor"
+        400:
+          description: "Invalid motor id"
+        404:
+          description: "Motor not found"
+  /motor:
+    get:
+      tags:
+      - "motor"
+      summary: "Get all known motors"
+      description: "Returns multiple motors"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Motor"
+    post:
+      tags:
+      - "motor"
+      summary: "Create a new motor"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Motor object"
+        required: true
+        schema:
+          $ref: "#/definitions/Motor"
+      responses:
+        400:
+          description: "Motor parameters missing in request body"
+        404:
+          description: "POST request does not accept path parameters"
+    put:
+      tags:
+      - "motor"
+      summary: "Change the motor's state"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Motor state object"
+        required: true
+        schema:
+          $ref: "#/definitions/MotorState"
+      responses:
+        400:
+          description: "Only setting motor state=[started|stopped] supported"
+        404:
+          description: "Motor id is missing"
+    delete:
+      tags:
+      - "motor"
+      summary: "Deletes a motor"
+      description: ""
+      produces:
+      - "application/json"
+      parameters:
+      - name: "motorId"
+        in: "path"
+        description: "Motor id to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        400:
+          description: "Motor id is missing"
+        404:
+          description: "Motor not found"
+definitions:
+  Motor:
+    type: "object"
+    required:
+    - "pwm"
+    - "fwd"
+    - "rev"
+    - "model"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      pwm:
+        type: "number"
+        format: "int64"
+        example: "7"
+      fwd:
+        type: "number"
+        format: "int64"
+        example: "8"
+      rev:
+        type: "number"
+        format: "int64"
+        example: "9"
+      model:
+        type: "string"
+        description: "type of hardware model"
+        enum:
+        - "RASPBERRY_PI"
+        - "NEONIOUS_ONE"
+        - "MOCK"
+  MotorState:
+    type: "object"
+    required:
+    - "state"
+    properties:
+      speed:
+        description: "Speed the motor should have when started"
+        type: "number"
+        format: "float"
+        minimum: 0
+        maximum: 1
+      seconds:
+        description: "Amount of seconds to change the motor's state for"
+        type: "integer"
+        format: "int64"
+      state:
+        description: "New state of the motor"
+        type: "string"
+        enum:
+        - "started"
+        - "stopped"
+      reverse:
+        type: "boolean"
+        description: "Reverse the motor's direction"
+        default: false
+

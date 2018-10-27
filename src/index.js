@@ -3,6 +3,10 @@ const url = require("url");
 const MotorController = require("./motor-controller");
 const ButtonController = require("./button-controller");
 
+function env(name, defaultVar) {
+    return (process || {env: {[name]: defaultVar}}).env[name];
+}
+
 function attachButton(motorId, modelId) {
     ButtonController.onPress(() => {
         console.log(`Left button has been pressed. Starting motor '${motorId}'`);
@@ -59,6 +63,6 @@ http.createServer(function (req, res) {
             res.end();
         }
     });
-}).listen((process || {env: {NODE_ENV: "production"}}).env.NODE_ENV === 'DEBUG' ? 8080 : 80);
+}).listen(env("NODE_ENV", "production") === "DEBUG" ? 8080 : 80);
 
 console.log("RolloBot API running!");

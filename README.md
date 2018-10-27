@@ -18,6 +18,11 @@ Build the application with `npm install && npm neonious`. Upload the file
 `dist/bundle.js` by using the integrated IDE. Bundling prevents errors regarding
 the maximum module depth limited by stack size.
 
+### API
+The implemented web server provides an API to manage motor instances and their
+states. For further information read the OpenAPI spec:
+[Swagger UI](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/sberlin/RolloBot/master/swagger.yml)
+
 ## Resources
 
 * [Technology Preview Manual](TPManual.pdf)

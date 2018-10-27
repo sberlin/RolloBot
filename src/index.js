@@ -66,3 +66,12 @@ http.createServer(function (req, res) {
 }).listen(env("NODE_ENV", "production") === "DEBUG" ? 8080 : 80);
 
 console.log("RolloBot API running!");
+
+if (env("NODE_ENV", "production") === "production") {
+    const result = MotorController.post(
+        {"pwm": 7, "fwd": 8, "rev": 9},
+        "NEONIOUS_ONE"
+    );
+    console.log("Created default motor: ", JSON.stringify(result));
+}
+
